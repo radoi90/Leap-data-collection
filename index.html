@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://wilkesalex.github.io/leapstrap/dist/css/leapstrap.css" />
     <link rel="stylesheet" href="assets/style/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="assets/style/bootswatch.main.css">
+    <link rel="stylesheet" href="assets/style/bootswatch.min.css">
     <link rel="stylesheet" type="text/css" href="assets/style/main.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -15,13 +15,13 @@
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="leap-interactive" leap-disable-tap="true" leap-disable-hover="true">
 
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../" class="navbar-brand">Leapraxia</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <a href="../" class="navbar-brand leap-interactive">Leapraxia</a>
+          <button class="navbar-toggle leap-interactive" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -30,22 +30,22 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Gestures <span class="caret"></span></a>
+              <a class="dropdown-toggle leap-interactive" data-toggle="dropdown" href="#" id="themes">Gestures <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="gestures/gesture1.html">Gesture 1</a></li>
-                <li><a href="gestures/gesture2.html">Gesture 2</a></li>
-                <li><a href="gestures/gesture3.html">Gesture 3</a></li>
-                <li><a href="gestures/gesture4.html">Gesture 4</a></li>
-                <li><a href="gestures/gesture5.html">Gesture 5</a></li>
-                <li><a href="gestures/gesture6.html">Gesture 6</a></li>
+                <li><a class="leap-interactive" href="gestures/gesture1.html">Gesture 1</a></li>
+                <li><a class="leap-interactive" href="gestures/gesture2.html">Gesture 2</a></li>
+                <li><a class="leap-interactive" href="gestures/gesture3.html">Gesture 3</a></li>
+                <li><a class="leap-interactive" href="gestures/gesture4.html">Gesture 4</a></li>
+                <li><a class="leap-interactive" href="gestures/gesture5.html">Gesture 5</a></li>
+                <li><a class="leap-interactive" href="gestures/gesture6.html">Gesture 6</a></li>
               </ul>
             </li>
-            <li><a href="https://www.leapmotion.com/" target="_blank">Get Leap</a></>
+            <li><a class="leap-interactive" href="https://www.leapmotion.com/" target="_blank">Get Leap</a></>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://www.cs.ox.ac.uk/" target="_blank">Department of Computer Science</a></li>
-            <li><a href="http://www.psy.ox.ac.uk/" target="_blank">Department of Experimental Psychology</a></li>
+            <li><a class="leap-interactive" href="http://www.cs.ox.ac.uk/" target="_blank">Department of Computer Science</a></li>
+            <li><a class="leap-interactive" href="http://www.psy.ox.ac.uk/" target="_blank">Department of Experimental Psychology</a></li>
           </ul>
 
         </div>
@@ -64,21 +64,21 @@
             <p>
               <img src="assets/img/IMG_0569.jpg" class="img-thumbnail">
             </p>
-            <a href="" class="btn btn-primary">Input gesture</a>
+            <a href="gestures/gesture1.html" class="btn btn-primary leap-interactive">Input gesture</a>
           </div>
           <div class="col-sm-4">
             <h3>Gesture 2</h3>
             <p>
               <img src="assets/img/IMG_0570.jpg" class="img-thumbnail">
             </p>
-            <a href="" class="btn btn-primary">Input gesture</a>
+            <a href="gestures/gesture2.html" class="btn btn-primary leap-interactive">Input gesture</a>
           </div>
           <div class="col-sm-4">
             <h3>Gesture 3</h3>
             <p>
               <img src="assets/img/IMG_0571.jpg" class="img-thumbnail">
             </p>
-            <a href="" class="btn btn-primary">Input gesture</a>
+            <a href="gestures/gesture3.html" class="btn btn-primary leap-interactive">Input gesture</a>
           </div>
         </div>
         <div class="row">
@@ -87,21 +87,21 @@
             <p>
               <img src="assets/img/IMG_0572.jpg" class="img-thumbnail">
             </p>
-            <a href="" class="btn btn-primary">Input gesture</a>
+            <a href="gestures/gesture4.html" class="btn btn-primary leap-interactive">Input gesture</a>
           </div>
           <div class="col-sm-4">
             <h3>Gesture 5</h3>
             <p>
               <img src="assets/img/IMG_0573.jpg" class="img-thumbnail">
             </p>
-            <a href="" class="btn btn-primary">Input gesture</a>
+            <a href="gestures/gesture5.html" class="btn btn-primary leap-interactive">Input gesture</a>
           </div>
           <div class="col-sm-4">
             <h3>Gesture 6</h3>
             <p>
               <img src="assets/img/IMG_0574.jpg" class="img-thumbnail">
             </p>
-            <a href="" class="btn btn-primary">Input gesture</a>
+            <a href="gestures/gesture6.html" class="btn btn-primary leap-interactive">Input gesture</a>
           </div>
         </div>
 
@@ -110,7 +110,7 @@
           <div class="col-lg-12">
 
             <ul class="list-unstyled">
-              <li class="pull-right"><a href="#top">Back to top</a></li>
+              <li class="pull-right leap-interactive"><a href="#top">Back to top</a></li>
             </ul>
           </div>
         </div>
@@ -128,6 +128,14 @@
     <script src="http://wilkesalex.github.io/leapstrap/dist/js/leapstrap.js"></script>
     <script src="assets/js/bootswatch.js"></script>
     <!-- Init Leap, Set all "a" interactive, use 1 Leap cursor/finger -->
-    <script>LeapManager.init({interactiveSelector:"a",maxCursors:1});</script>
+    <script>LeapManager.init({
+      enableMetaGestures: true,
+      enableDefaultMetaGestureActions: true,
+      maxCursors:1,
+      enableHoverTap: true,
+      enablePressDown: true,
+      enableTouchScrolling: false,
+      enableScrollbarScrolling: true,
+    });</script>
   </body>
 </html>
