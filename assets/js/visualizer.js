@@ -19,88 +19,118 @@ var init = function(){
   Leap.loop(function(frame) {
 
     var fingerIds = {};
-    var handIds = {};
+    var handId;
 
-    for (var index =0; index < frame.hands.length; index++) {
-      var hand = frame.hands[index];
-      recordHandInfo(hand);
-      recordFingersInfo(hand.fingers);
-      var palmCenter = hand.palmPosition;
+    if (handId == null || frame.hand(handId) == null)
+        handId = getBestHand(frame);
 
-      var origin = new THREE.Vector3(palmCenter[0], palmCenter[1], palmCenter[2]);
-      var orientation = new THREE.Vector3(hand.pitch()-Math.PI/2, -hand.roll(), -hand.yaw()+Math.PI/2);
+    var hand = frame.hand(handId);
+    if (hand != undefined) {
+        recordHandInfo(hand);
+        recordFingersInfo(hand.fingers);
+        var palmCenter = hand.palmPosition;
 
-      var radius   = 60,
-          segments = 64,
-          material = new THREE.LineBasicMaterial( { color: 0x0000ff } ),
-          geometry = new THREE.CircleGeometry( radius, segments );
+        var origin = new THREE.Vector3(palmCenter[0], palmCenter[1], palmCenter[2]);
+        var orientation = new THREE.Vector3(hand.pitch()-Math.PI/2, -hand.roll(), -hand.yaw()+Math.PI/2);
 
-      scene.remove(circle);
-      circle = new THREE.Line( geometry, material );
-      circle.position = origin;
-      circle.rotation = orientation;
+        var radius   = 60,
+            segments = 64,
+            material = new THREE.LineBasicMaterial( { color: 0x0000ff } ),
+            geometry = new THREE.CircleGeometry( radius, segments );
 
-      scene.add(circle);
-    }
+        scene.remove(circle);
+        circle = new THREE.Line( geometry, material );
+        circle.position = origin;
+        circle.rotation = orientation;
 
-    for (var index = 0; index < frame.pointables.length; index++) {
+        scene.add(circle);
 
-      var pointable = frame.pointables[index];
-      var finger = fingers[pointable.id];
+        for (var index = 0; index < hand.pointables.length; index++) {
 
-      var pos = pointable.tipPosition;
-      var dir = pointable.direction;
+            var pointable = hand.pointables[index];
+            var finger = fingers[pointable.id];
 
-      var origin = new THREE.Vector3(pos[0], pos[1], pos[2]);
-      var direction = new THREE.Vector3(dir[0], dir[1], dir[2]);
+            var pos = pointable.tipPosition;
+            var dir = pointable.direction;
 
-      if (!finger) {
-        finger = new THREE.ArrowHelper(origin, direction, 40, Math.random() * 0xffffff);
-        fingers[pointable.id] = finger;
-        scene.add(finger);
-      }
+            var origin = new THREE.Vector3(pos[0], pos[1], pos[2]);
+            var direction = new THREE.Vector3(dir[0], dir[1], dir[2]);
 
-      finger.position = origin;
-      finger.setDirection(direction);
+            if (!finger) {
+                var v = pointable.tipVelocity;
+                var s = v[0] + v[1] + v[2];
+                var color = new THREE.Color(s > 27 ? 0xff0000 : 0x00ff00);
+                finger = new THREE.ArrowHelper(origin, direction, 40, color);
 
-      fingerIds[pointable.id] = true;
-    }
+                fingers[pointable.id] = finger;
+                scene.add(finger);
+            }
 
-    for (fingerId in fingers) {
-      if (!fingerIds[fingerId]) {
-        scene.remove(fingers[fingerId]);
-        delete fingers[fingerId];
-      }
+            finger.position = origin;
+            finger.setDirection(direction);
+
+            fingerIds[pointable.id] = true;
+        }
+
+        for (fingerId in fingers) {
+            if (!fingerIds[fingerId]) {
+                scene.remove(fingers[fingerId]);
+                delete fingers[fingerId];
+            } else {
+                var v = hand.finger(fingerId).tipVelocity;
+                var s = v[0] + v[1] + v[2];
+                fingers[fingerId].setColor(s > 27 ? 0xff0000 : 0x00ff00);
+            }
+        }
     }
 
     renderer.render(scene, camera);
   });
 };
 
+function getBestHand(f) {
+    if (f == undefined) return undefined;
+    var h, m = 0;
+
+    for (var i = 0; i < f.hands.length; i++) {
+        if (f.hands[i].timeVisable > m) {
+            h = f.hands[i].id;
+            m = f.hands[i].timeVisable;
+        } else if (f.hands[i].timeVisable == m || h == undefined) {
+            if (h == undefined) h = f.hands[i].id;
+            if (f.hands[i].fingers.length > f.hand(h).fingers.length) {
+                h = f.hands[i].id;
+            }
+        }
+    }
+
+    return h;
+}
+
 function recordHandInfo(h) {
-    document.getElementById('Hand.position.x').value = h.palmPosition[0];
-    document.getElementById('Hand.position.y').value = h.palmPosition[1];
-    document.getElementById('Hand.position.z').value = h.palmPosition[2];
+    document.getElementById('hn.pos.x').value      = h.palmPosition[0];
+    document.getElementById('hn.pos.y').value      = h.palmPosition[1];
+    document.getElementById('hn.pos.z').value      = h.palmPosition[2];
 
-    document.getElementById('Hand.pitch').value      = h.pitch();
-    document.getElementById('Hand.yaw').value        = h.yaw();
-    document.getElementById('Hand.roll').value       = h.roll();
+    document.getElementById('hn.pitch').value      = h.pitch();
+    document.getElementById('hn.yaw').value        = h.yaw();
+    document.getElementById('hn.roll').value       = h.roll();
 
-    document.getElementById('Hand.sphere.x').value   = h.sphereCenter[0];
-    document.getElementById('Hand.sphere.y').value   = h.sphereCenter[1];
-    document.getElementById('Hand.sphere.z').value   = h.sphereCenter[2];
-    document.getElementById('Hand.sphere.r').value   = h.sphereRadius;
+    document.getElementById('hn.sphere.x').value   = h.sphereCenter[0];
+    document.getElementById('hn.sphere.y').value   = h.sphereCenter[1];
+    document.getElementById('hn.sphere.z').value   = h.sphereCenter[2];
+    document.getElementById('hn.sphere.r').value   = h.sphereRadius;
 }
 
 function recordFingersInfo(fs) {
     for (var i = 0; i < fs.length; i++) {
-        document.getElementById('finger' + i + '.direction.x').value = fs[i].direction[0];
-        document.getElementById('finger' + i + '.direction.y').value = fs[i].direction[1];
-        document.getElementById('finger' + i + '.direction.z').value = fs[i].direction[2];
+        document.getElementById('fg' + i + '.direction.x').value = fs[i].direction[0];
+        document.getElementById('fg' + i + '.direction.y').value = fs[i].direction[1];
+        document.getElementById('fg' + i + '.direction.z').value = fs[i].direction[2];
 
-        document.getElementById('finger' + i + '.tip.x').value       = fs[i].tipPosition[0];
-        document.getElementById('finger' + i + '.tip.y').value       = fs[i].tipPosition[1];
-        document.getElementById('finger' + i + '.tip.z').value       = fs[i].tipPosition[2];
+        document.getElementById('fg' + i + '.tip.x').value       = fs[i].tipPosition[0];
+        document.getElementById('fg' + i + '.tip.y').value       = fs[i].tipPosition[1];
+        document.getElementById('fg' + i + '.tip.z').value       = fs[i].tipPosition[2];
     }
 }
 
