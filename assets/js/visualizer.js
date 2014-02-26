@@ -8,6 +8,8 @@ function getParameterByName(name) {
 var gesture = getParameterByName("gesture");
 
 document.getElementById("gesture").value = gesture;
+document.getElementById("gesture-image").innerHTML = (gesture == undefined) ?
+    'No gesture selected!' : "<img src=../assets/img/"+ gesture + "_snapshot.png>";
 
 var scene, camera, renderer;
 
@@ -36,6 +38,8 @@ var init = function(){
         handId = getBestHand(frame);
 
     var hand = frame.hand(handId);
+    recordHandInfo(hand);
+      
     if (hand != undefined && hand.valid) {
         recordHandInfo(hand);
         recordFingersInfo(hand.fingers);
@@ -118,18 +122,20 @@ function getBestHand(f) {
 }
 
 function recordHandInfo(h) {
-    document.getElementById('hn.pos.x').value      = h.palmPosition[0];
-    document.getElementById('hn.pos.y').value      = h.palmPosition[1];
-    document.getElementById('hn.pos.z').value      = h.palmPosition[2];
+    var has_data = (h != undefined && h.valid);
 
-    document.getElementById('hn.pitch').value      = h.pitch();
-    document.getElementById('hn.yaw').value        = h.yaw();
-    document.getElementById('hn.roll').value       = h.roll();
+    document.getElementById('hn.pos.x').value      = (has_data) ? h.palmPosition[0] : '';
+    document.getElementById('hn.pos.y').value      = (has_data) ? h.palmPosition[1] : '';
+    document.getElementById('hn.pos.z').value      = (has_data) ? h.palmPosition[2] : '';
 
-    document.getElementById('hn.sphere.x').value   = h.sphereCenter[0];
-    document.getElementById('hn.sphere.y').value   = h.sphereCenter[1];
-    document.getElementById('hn.sphere.z').value   = h.sphereCenter[2];
-    document.getElementById('hn.sphere.r').value   = h.sphereRadius;
+    document.getElementById('hn.pitch').value      = (has_data) ? h.pitch() : '';
+    document.getElementById('hn.yaw').value        = (has_data) ? h.yaw() : '';
+    document.getElementById('hn.roll').value       = (has_data) ? h.roll() : '';
+
+    document.getElementById('hn.sphere.x').value   = (has_data) ? h.sphereCenter[0] : '';
+    document.getElementById('hn.sphere.y').value   = (has_data) ? h.sphereCenter[1] : '';
+    document.getElementById('hn.sphere.z').value   = (has_data) ? h.sphereCenter[2] : '';
+    document.getElementById('hn.sphere.r').value   = (has_data) ? h.sphereRadius : '';
 }
 
 function recordFingersInfo(fs) {
@@ -141,6 +147,15 @@ function recordFingersInfo(fs) {
         document.getElementById('fg' + i + '.tip.x').value       = fs[i].tipPosition[0];
         document.getElementById('fg' + i + '.tip.y').value       = fs[i].tipPosition[1];
         document.getElementById('fg' + i + '.tip.z').value       = fs[i].tipPosition[2];
+    }
+    for (var i = fs.length; i < 5; i++) {
+        document.getElementById('fg' + i + '.direction.x').value = '';
+        document.getElementById('fg' + i + '.direction.y').value = '';
+        document.getElementById('fg' + i + '.direction.z').value = '';
+
+        document.getElementById('fg' + i + '.tip.x').value       = '';
+        document.getElementById('fg' + i + '.tip.y').value       = '';
+        document.getElementById('fg' + i + '.tip.z').value       = '';
     }
 }
 
