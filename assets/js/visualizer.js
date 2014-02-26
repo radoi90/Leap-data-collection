@@ -36,7 +36,7 @@ var init = function(){
         handId = getBestHand(frame);
 
     var hand = frame.hand(handId);
-    if (hand != undefined) {
+    if (hand != undefined && hand.valid) {
         recordHandInfo(hand);
         recordFingersInfo(hand.fingers);
         var palmCenter = hand.palmPosition;
@@ -90,6 +90,8 @@ var init = function(){
                 fingers[fingerId].setColor(s > 21 ? 0xff0000 : 0x00ff00);
             }
         }
+    } else {
+        scene.remove(circle);
     }
 
     renderer.render(scene, camera);
