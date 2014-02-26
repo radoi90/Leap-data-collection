@@ -1,3 +1,14 @@
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+var gesture = getParameterByName("gesture");
+
+document.getElementById("gesture").value = gesture;
+
 var scene, camera, renderer;
 
 var init = function(){
@@ -35,7 +46,7 @@ var init = function(){
 
         var radius   = 60,
             segments = 64,
-            material = new THREE.LineBasicMaterial( { color: 0x0000ff } ),
+            material = new THREE.LineBasicMaterial( { color: 0x0000aa , linewidth: 5} ),
             geometry = new THREE.CircleGeometry( radius, segments );
 
         scene.remove(circle);
@@ -57,10 +68,7 @@ var init = function(){
             var direction = new THREE.Vector3(dir[0], dir[1], dir[2]);
 
             if (!finger) {
-                var v = pointable.tipVelocity;
-                var s = v[0] + v[1] + v[2];
-                var color = new THREE.Color(s > 27 ? 0xff0000 : 0x00ff00);
-                finger = new THREE.ArrowHelper(origin, direction, 40, color);
+                finger = new THREE.ArrowHelper(origin, direction, 40);
 
                 fingers[pointable.id] = finger;
                 scene.add(finger);
@@ -79,7 +87,7 @@ var init = function(){
             } else {
                 var v = hand.finger(fingerId).tipVelocity;
                 var s = v[0] + v[1] + v[2];
-                fingers[fingerId].setColor(s > 27 ? 0xff0000 : 0x00ff00);
+                fingers[fingerId].setColor(s > 21 ? 0xff0000 : 0x00ff00);
             }
         }
     }
@@ -159,15 +167,17 @@ controller.on('disconnect', function() {
     console.log("disconnect");
 });
 controller.on('focus', function() {
-    document.getElementById('canvas-container').innerHTML = '';
+    document.getElementById('canvas-container').innerHTML = (renderer == undefined) ?
+        'If you are not already doing it, please use the Google Chrome browser' : '';
     document.getElementById("canvas-container").appendChild(renderer.domElement);
 });
 controller.on('blur', function() {
-    document.getElementById('canvas-container').innerHTML = 'Leapstrap is not in focus.';
+    document.getElementById('canvas-container').innerHTML = 'Page is not in focus.';
     console.log("blur");
 });
 controller.on('deviceConnected', function() {
-    document.getElementById('canvas-container').innerHTML = '';
+    document.getElementById('canvas-container').innerHTML = (renderer == undefined) ?
+        'If you are not already doing it, please use the Google Chrome browser': '';
     document.getElementById("canvas-container").appendChild(renderer.domElement);
     console.log("deviceConnected");
 });
