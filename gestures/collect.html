@@ -63,6 +63,7 @@
                 <li><a class="leap-interactive" href="collect.html?gesture=gesture10R">Gesture 10R</a></li>
               </ul>
             </li>
+            <li><a href="../display.html">Display gestures</a></li>
             <li><a class="leap-interactive" href="https://www.leapmotion.com/" target="_blank">Get Leap</a><li/>
           </ul>
 
@@ -76,359 +77,355 @@
     </div>
 
     <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="canvas-container">
+                    Connect Leap Motion and make sure device is <a href="https://www.leapmotion.com/setup">installed</a>.
+                </div>
+            </div>
+            <div class="col-lg-6" id="gesture-image">
+            </div>
+        </div>
+        <div class="row">
+            <iframe name="hidden_iframe" id="hidden_iframe"
+                    style="display:none;" onload="if(submitted)
+                            {window.location=inputNextGesture();}"></iframe>
+            <form class="bs-example form-horizontal"
+                  action="https://docs.google.com/forms/d/13MMq9nmoaaAC9JF0B9c0YbaTncMKmf2uSRQIcN2TbrY/formResponse"
+                  method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                <fieldset>
+                    <div class="well">
+                    <div class="form-group">
+                        <div class="col-sm-3"><div class="row">
+                        <label for="gesture" class="col-sm-3 control-label">Gesture</label>
+                        <div class="col-sm-9">
+                            <select name="entry.1960785257" class="form-control" id="gesture">
+                                <option value=""></option>
+                                <option value="gesture1L">gesture1L</option>
+                                <option value="gesture1R">gesture1R</option>
+                                <option value="gesture2L">gesture2L</option>
+                                <option value="gesture2R">gesture2R</option>
+                                <option value="gesture3L">gesture3L</option>
+                                <option value="gesture3R">gesture3R</option>
+                                <option value="gesture4L">gesture4L</option>
+                                <option value="gesture4R">gesture4R</option>
+                                <option value="gesture5L">gesture5L</option>
+                                <option value="gesture5R">gesture5R</option>
+                                <option value="gesture6L">gesture6L</option>
+                                <option value="gesture6R">gesture6R</option>
+                                <option value="gesture7L">gesture7L</option>
+                                <option value="gesture7R">gesture7R</option>
+                                <option value="gesture8L">gesture8L</option>
+                                <option value="gesture8R">gesture8R</option>
+                                <option value="gesture9L">gesture9L</option>
+                                <option value="gesture9R">gesture9R</option>
+                                <option value="gesture10L">gesture10L</option>
+                                <option value="gesture10R">gesture10R</option>
+                            </select>
+                        </div>
+                        </div></div>
 
-        <div class="bs-docs-section">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div id="canvas-container">
-                        Connect Leap Motion and make sure device is <a href="https://www.leapmotion.com/setup">installed</a>.
+                        <div class="col-sm-3"><div class="row">
+                        <label for="Control" class="col-sm-3 control-label">Control</label>
+                        <div class="col-sm-9">
+                            <select name="entry.1008670966" class="form-control" id="Control">
+                                <option value=""></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        </div></div>
+
+                        <div class="col-sm-3"><div class="row">
+                        <label for="Score" class="col-sm-3 control-label">Score</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.871913931" class="form-control" id="Score">
+                        </div>
+                        </div></div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6" id="gesture-image">
-                </div>
-            </div>
-            <div class="row">
-                <iframe name="hidden_iframe" id="hidden_iframe"
-                        style="display:none;" onload="if(submitted)
-                                {window.location=inputNextGesture();}"></iframe>
-                <form class="bs-example form-horizontal"
-                      action="https://docs.google.com/forms/d/13MMq9nmoaaAC9JF0B9c0YbaTncMKmf2uSRQIcN2TbrY/formResponse"
-                      method="POST" target="hidden_iframe" onsubmit="submitted=true;">
-                    <fieldset>
-                        <div class="well">
-                        <div class="form-group">
-                            <div class="col-sm-3"><div class="row">
-                            <label for="gesture" class="col-sm-3 control-label">Gesture</label>
-                            <div class="col-sm-9">
-                                <select name="entry.1960785257" class="form-control" id="gesture">
-                                    <option value=""></option>
-                                    <option value="gesture1L">gesture1L</option>
-                                    <option value="gesture1R">gesture1R</option>
-                                    <option value="gesture2L">gesture2L</option>
-                                    <option value="gesture2R">gesture2R</option>
-                                    <option value="gesture3L">gesture3L</option>
-                                    <option value="gesture3R">gesture3R</option>
-                                    <option value="gesture4L">gesture4L</option>
-                                    <option value="gesture4R">gesture4R</option>
-                                    <option value="gesture5L">gesture5L</option>
-                                    <option value="gesture5R">gesture5R</option>
-                                    <option value="gesture6L">gesture6L</option>
-                                    <option value="gesture6R">gesture6R</option>
-                                    <option value="gesture7L">gesture7L</option>
-                                    <option value="gesture7R">gesture7R</option>
-                                    <option value="gesture8L">gesture8L</option>
-                                    <option value="gesture8R">gesture8R</option>
-                                    <option value="gesture9L">gesture9L</option>
-                                    <option value="gesture9R">gesture9R</option>
-                                    <option value="gesture10L">gesture10L</option>
-                                    <option value="gesture10R">gesture10R</option>
-                                </select>
-                            </div>
-                            </div></div>
-
-                            <div class="col-sm-3"><div class="row">
-                            <label for="Control" class="col-sm-3 control-label">Control</label>
-                            <div class="col-sm-9">
-                                <select name="entry.1008670966" class="form-control" id="Control">
-                                    <option value=""></option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            </div></div>
-
-                            <div class="col-sm-3"><div class="row">
-                            <label for="Score" class="col-sm-3 control-label">Score</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.871913931" class="form-control" id="Score">
-                            </div>
-                            </div></div>
-                            <div class="col-sm-3">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                        </div>
-
-                        <div class="well">
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.pos.x" class="col-sm-3 control-label">hn.pos.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1320769535" class="form-control" id="hn.pos.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.pos.y" class="col-sm-3 control-label">hn.pos.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.49708052" class="form-control" id="hn.pos.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.pos.z" class="col-sm-3 control-label">hn.pos.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1518252714" class="form-control" id="hn.pos.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.pitch" class="col-sm-3 control-label">hn.pitch</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.387837076" class="form-control" id="hn.pitch" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.yaw" class="col-sm-3 control-label">hn.yaw</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.270648035" class="form-control" id="hn.yaw" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.roll" class="col-sm-3 control-label">hn.roll</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1515053752" class="form-control" id="hn.roll" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.sphere.x" class="col-sm-3 control-label">hn.sph.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.252062359" class="form-control" id="hn.sphere.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.sphere.y" class="col-sm-3 control-label">hn.sph.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.2048127830" class="form-control" id="hn.sphere.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.sphere.z" class="col-sm-3 control-label">hn.sph.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.915539713" class="form-control" id="hn.sphere.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="hn.sphere.r" class="col-sm-3 control-label">hn.sph.r</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1062418151" class="form-control" id="hn.sphere.r" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg0.direction.x" class="col-sm-3 control-label">fg0.dir.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1947842891" class="form-control" id="fg0.direction.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg0.direction.y" class="col-sm-3 control-label">fg0.dir.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1767580532" class="form-control" id="fg0.direction.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg0.direction.z" class="col-sm-3 control-label">fg0.dir.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.277585724" class="form-control" id="fg0.direction.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg0.tip.x" class="col-sm-3 control-label">fg0.tip.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1537914900" class="form-control" id="fg0.tip.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg0.tip.y" class="col-sm-3 control-label">fg0.tip.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1693461755" class="form-control" id="fg0.tip.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg0.tip.z" class="col-sm-3 control-label">fg0.tip.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1472932732" class="form-control" id="fg0.tip.z" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg1.direction.x" class="col-sm-3 control-label">fg1.dir.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1268272442" class="form-control" id="fg1.direction.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg1.direction.y" class="col-sm-3 control-label">fg1.dir.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.844357514" class="form-control" id="fg1.direction.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg1.direction.z" class="col-sm-3 control-label">fg1.dir.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.987715318" class="form-control" id="fg1.direction.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg1.tip.x" class="col-sm-3 control-label">fg1.tip.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1451107207" class="form-control" id="fg1.tip.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg1.tip.y" class="col-sm-3 control-label">fg1.tip.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1394209805" class="form-control" id="fg1.tip.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg1.tip.z" class="col-sm-3 control-label">fg1.tip.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1324294473" class="form-control" id="fg1.tip.z" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg2.direction.x" class="col-sm-3 control-label">fg2.dir.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1640721140" class="form-control" id="fg2.direction.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg2.direction.y" class="col-sm-3 control-label">fg2.dir.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.807499115" class="form-control" id="fg2.direction.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg2.direction.z" class="col-sm-3 control-label">fg2.dir.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.2021226655" class="form-control" id="fg2.direction.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg2.tip.x" class="col-sm-3 control-label">fg2.tip.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1515462303" class="form-control" id="fg2.tip.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg2.tip.y" class="col-sm-3 control-label">fg2.tip.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.2067511013" class="form-control" id="fg2.tip.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg2.tip.z" class="col-sm-3 control-label">fg2.tip.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.998673856" class="form-control" id="fg2.tip.z" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg3.direction.x" class="col-sm-3 control-label">fg3.dir.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1859002779" class="form-control" id="fg3.direction.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg3.direction.y" class="col-sm-3 control-label">fg3.dir.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1282085007" class="form-control" id="fg3.direction.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg3.direction.z" class="col-sm-3 control-label">fg3.dir.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1774713780" class="form-control" id="fg3.direction.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg3.tip.x" class="col-sm-3 control-label">fg3.tip.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.2089899149" class="form-control" id="fg3.tip.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg3.tip.y" class="col-sm-3 control-label">fg3.tip.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.426770084" class="form-control" id="fg3.tip.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-							<label for="fg3.tip.z" class="col-sm-3 control-label">fg3.tip.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1927831772" class="form-control" id="fg3.tip.z" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-2"><div class="row">
-                            <label for="fg4.direction.x" class="col-sm-3 control-label">fg4.dir.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1046912723" class="form-control" id="fg4.direction.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="fg4.direction.y" class="col-sm-3 control-label">fg4.dir.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.661499849" class="form-control" id="fg4.direction.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="fg4.direction.z" class="col-sm-3 control-label">fg4.dir.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.629869195" class="form-control" id="fg4.direction.z" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="fg4.tip.x" class="col-sm-3 control-label">fg4.tip.x</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1043726457" class="form-control" id="fg4.tip.x" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="fg4.tip.y" class="col-sm-3 control-label">fg4.tip.y</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1369877958" class="form-control" id="fg4.tip.y" readonly>
-                            </div>
-                            </div></div>
-                            <div class="col-sm-2"><div class="row">
-                            <label for="fg4.tip.z" class="col-sm-3 control-label">fg4.tip.z</label>
-                            <div class="col-sm-9">
-                                <input type="number" name="entry.1647550420" class="form-control" id="fg4.tip.z" readonly>
-                            </div>
-                            </div></div>
-                        </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-            </div>
-
-            <footer>
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <ul class="list-unstyled">
-                            <li class="pull-right"><a href="#top">Back to top</a></li>
-                        </ul>
                     </div>
-                </div>
 
-            </footer>
+                    <div class="well">
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.pos.x" class="col-sm-3 control-label">hn.pos.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1320769535" class="form-control" id="hn.pos.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.pos.y" class="col-sm-3 control-label">hn.pos.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.49708052" class="form-control" id="hn.pos.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.pos.z" class="col-sm-3 control-label">hn.pos.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1518252714" class="form-control" id="hn.pos.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.pitch" class="col-sm-3 control-label">hn.pitch</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.387837076" class="form-control" id="hn.pitch" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.yaw" class="col-sm-3 control-label">hn.yaw</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.270648035" class="form-control" id="hn.yaw" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.roll" class="col-sm-3 control-label">hn.roll</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1515053752" class="form-control" id="hn.roll" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.sphere.x" class="col-sm-3 control-label">hn.sph.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.252062359" class="form-control" id="hn.sphere.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.sphere.y" class="col-sm-3 control-label">hn.sph.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.2048127830" class="form-control" id="hn.sphere.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.sphere.z" class="col-sm-3 control-label">hn.sph.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.915539713" class="form-control" id="hn.sphere.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="hn.sphere.r" class="col-sm-3 control-label">hn.sph.r</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1062418151" class="form-control" id="hn.sphere.r" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg0.direction.x" class="col-sm-3 control-label">fg0.dir.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1947842891" class="form-control" id="fg0.direction.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg0.direction.y" class="col-sm-3 control-label">fg0.dir.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1767580532" class="form-control" id="fg0.direction.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg0.direction.z" class="col-sm-3 control-label">fg0.dir.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.277585724" class="form-control" id="fg0.direction.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg0.tip.x" class="col-sm-3 control-label">fg0.tip.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1537914900" class="form-control" id="fg0.tip.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg0.tip.y" class="col-sm-3 control-label">fg0.tip.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1693461755" class="form-control" id="fg0.tip.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg0.tip.z" class="col-sm-3 control-label">fg0.tip.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1472932732" class="form-control" id="fg0.tip.z" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg1.direction.x" class="col-sm-3 control-label">fg1.dir.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1268272442" class="form-control" id="fg1.direction.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg1.direction.y" class="col-sm-3 control-label">fg1.dir.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.844357514" class="form-control" id="fg1.direction.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg1.direction.z" class="col-sm-3 control-label">fg1.dir.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.987715318" class="form-control" id="fg1.direction.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg1.tip.x" class="col-sm-3 control-label">fg1.tip.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1451107207" class="form-control" id="fg1.tip.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg1.tip.y" class="col-sm-3 control-label">fg1.tip.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1394209805" class="form-control" id="fg1.tip.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg1.tip.z" class="col-sm-3 control-label">fg1.tip.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1324294473" class="form-control" id="fg1.tip.z" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg2.direction.x" class="col-sm-3 control-label">fg2.dir.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1640721140" class="form-control" id="fg2.direction.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg2.direction.y" class="col-sm-3 control-label">fg2.dir.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.807499115" class="form-control" id="fg2.direction.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg2.direction.z" class="col-sm-3 control-label">fg2.dir.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.2021226655" class="form-control" id="fg2.direction.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg2.tip.x" class="col-sm-3 control-label">fg2.tip.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1515462303" class="form-control" id="fg2.tip.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg2.tip.y" class="col-sm-3 control-label">fg2.tip.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.2067511013" class="form-control" id="fg2.tip.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg2.tip.z" class="col-sm-3 control-label">fg2.tip.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.998673856" class="form-control" id="fg2.tip.z" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg3.direction.x" class="col-sm-3 control-label">fg3.dir.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1859002779" class="form-control" id="fg3.direction.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg3.direction.y" class="col-sm-3 control-label">fg3.dir.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1282085007" class="form-control" id="fg3.direction.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg3.direction.z" class="col-sm-3 control-label">fg3.dir.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1774713780" class="form-control" id="fg3.direction.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg3.tip.x" class="col-sm-3 control-label">fg3.tip.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.2089899149" class="form-control" id="fg3.tip.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg3.tip.y" class="col-sm-3 control-label">fg3.tip.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.426770084" class="form-control" id="fg3.tip.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg3.tip.z" class="col-sm-3 control-label">fg3.tip.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1927831772" class="form-control" id="fg3.tip.z" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg4.direction.x" class="col-sm-3 control-label">fg4.dir.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1046912723" class="form-control" id="fg4.direction.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg4.direction.y" class="col-sm-3 control-label">fg4.dir.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.661499849" class="form-control" id="fg4.direction.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg4.direction.z" class="col-sm-3 control-label">fg4.dir.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.629869195" class="form-control" id="fg4.direction.z" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg4.tip.x" class="col-sm-3 control-label">fg4.tip.x</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1043726457" class="form-control" id="fg4.tip.x" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg4.tip.y" class="col-sm-3 control-label">fg4.tip.y</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1369877958" class="form-control" id="fg4.tip.y" readonly>
+                        </div>
+                        </div></div>
+                        <div class="col-sm-2"><div class="row">
+                        <label for="fg4.tip.z" class="col-sm-3 control-label">fg4.tip.z</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="entry.1647550420" class="form-control" id="fg4.tip.z" readonly>
+                        </div>
+                        </div></div>
+                    </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
         </div>
 
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <ul class="list-unstyled">
+                        <li class="pull-right"><a href="#top">Back to top</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </footer>
     </div>
 
   </body>
