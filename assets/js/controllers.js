@@ -33,5 +33,43 @@ indexApp.controller('indexCtrl', function ($scope) {
 });
 
 displayApp.controller('displayCtrl', function ($scope) {
-   $scope.gestures = gestures;
+    $scope.gestures = gestures;
+
+    $scope.gesture1 = $scope.gestures[0];
+    $scope.gesture2 = $scope.gestures[0];
+
+    var aspect_ration = 16/9;
+    var w = document.getElementsByClassName("col-lg-6")[0].firstElementChild.scrollWidth;
+    var h = w / aspect_ration;
+
+    $scope.display1 = function() {
+        var p = document.getElementById("gesture1display");
+
+        p.innerHTML  =
+            "<video controls poster=assets/img/"+$scope.gesture1.short_name +"_snapshot.png>" +
+                "<source src=https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/" + $scope.gesture1.short_name +
+                ".MP4?raw=true" + " type='video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;' />" +
+                "</video>";
+
+        var videos = document.getElementsByTagName("video");
+        for (var i = 0; i < videos.length; i++)
+            videos[i].setAttribute("style", "width:"+ w +"px;height:" + h+"px;");
+    }
+
+    $scope.display2 = function() {
+        var p = document.getElementById("gesture2display");
+
+        p.innerHTML  =
+            "<video controls poster=assets/img/"+$scope.gesture2.short_name +"_snapshot.png>" +
+                "<source src=https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/" + $scope.gesture2.short_name +
+                ".MP4?raw=true" + " type='video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;' />" +
+            "</video>";
+
+        var videos = document.getElementsByTagName("video");
+        for (var i = 0; i < videos.length; i++)
+            videos[i].setAttribute("style", "width:"+ w +"px;height:" + h+"px;");
+    }
+
+    $scope.display1();
+    $scope.display2();
 });
