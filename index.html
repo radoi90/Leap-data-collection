@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="indexApp">
   <head>
     <meta charset="utf-8">
     <title>Leapraxia</title>
@@ -9,13 +8,15 @@
     <link rel="stylesheet" href="assets/style/bootstrap.css" media="screen">
     <link rel="stylesheet" href="assets/style/bootswatch.min.css">
     <link rel="stylesheet" type="text/css" href="assets/style/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="assets/js/controllers.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
       <script src="../bower_components/respond/dest/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="leap-interactive" leap-disable-tap="true" leap-disable-hover="true">
+  <body class="leap-interactive" leap-disable-tap="true" leap-disable-hover="true" ng-controller="indexCtrl">
 
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -32,26 +33,9 @@
             <li class="dropdown">
               <a class="dropdown-toggle leap-interactive" data-toggle="dropdown" href="#" id="themes">Gestures <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture1L">Gesture 1L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture1R">Gesture 1R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture2L">Gesture 2L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture2R">Gesture 2R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture3L">Gesture 3L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture3R">Gesture 3R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture4L">Gesture 4L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture4R">Gesture 4R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture5L">Gesture 5L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture5R">Gesture 5R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture6L">Gesture 6L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture6R">Gesture 6R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture7L">Gesture 7L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture7R">Gesture 7R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture8L">Gesture 8L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture8R">Gesture 8R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture9L">Gesture 9L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture9R">Gesture 9R</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture10L">Gesture 10L</a></li>
-                <li><a class="leap-interactive" href="gestures/collect.html?gesture=gesture10R">Gesture 10R</a></li>
+                  <li ng-repeat="gesture in gestures">
+                      <a class="leap-interactive" ng-href="gestures/collect.html?gesture={{gesture.short_name}}">{{gesture.nice_name}}</a>
+                  </li>
               </ul>
             </li>
             <li><a class="leap-interactive" href="https://www.leapmotion.com/" target="_blank">Get Leap</a></li>
@@ -70,6 +54,28 @@
     <div class="container">
 
       <div class="bs-docs-section">
+        <div class="row">
+            <form class="form-inline" role="form">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="control-label" for="gesture1">Gesture 1</label>
+                        <select class="form-control" ng-model="gesture1"
+                                ng-options="g.nice_name for g in gestures" id="gesture1"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="gesture2">Gesture 2</label>
+                        <select class="form-control" ng-model="gesture2"
+                                ng-options="g.nice_name for g in gestures" id="gesture2"></select>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Input gestures</button>
+                </div>
+            </form>
+        </div>
         <div class="row">
           <div class="col-md-3">
             <h3>Gesture 1L</h3>
@@ -155,7 +161,6 @@
                 <a href="gestures/collect.html?gesture=gesture4R" class="btn btn-primary leap-interactive">Input gesture</a>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-3">
               <h3>Gesture 5L</h3>
@@ -302,21 +307,7 @@
 
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <!-- Include Leap (maybe you already do?) -->
-    <script src="http://js.leapmotion.com/0.3.0-beta3/leap.js"></script>
-    <!-- Include Leapstrap JS -->
-    <script src="http://wilkesalex.github.io/leapstrap/dist/js/leapstrap.js"></script>
     <script src="assets/js/bootswatch.js"></script>
-    <!-- Init Leap, Set all "a" interactive, use 1 Leap cursor/finger -->
-    <script>LeapManager.init({
-      enableMetaGestures: true,
-      enableDefaultMetaGestureActions: true,
-      maxCursors:1,
-      enableHoverTap: true,
-      enablePressDown: true,
-      enableTouchScrolling: false,
-      enableScrollbarScrolling: true
-    });</script>
     <script>
         var aspect_ration = 16/9;
         var w = document.getElementsByClassName("col-md-3")[0].firstElementChild.scrollWidth;
