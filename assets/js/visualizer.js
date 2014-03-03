@@ -1,15 +1,35 @@
+var submitted = false;
+
+function inputNextGesture() {
+    if (queryString != null && queryString.length > 0) {
+        return location.origin + location.pathname + "?" + queryString;
+    } else {
+        return '../';
+    }
+}
+
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
+        results = regex.exec(queryString);
+
+    if (results != null)
+        queryString = queryString.substring(queryString.indexOf(results[0]) + results[0].length + 1);
+
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-var gesture = getParameterByName("gesture");
+var queryString = location.search;
 
-document.getElementById("gesture").value = gesture;
-document.getElementById("gesture-image").innerHTML = (gesture == undefined) ?
-    'No gesture selected!' : "<img src=../assets/img/"+ gesture + "_snapshot.png>";
+$(document).ready(function() {
+    var gesture = getParameterByName("gesture");
+    console.log(location);
+    console.log(queryString.length);
+
+    document.getElementById("gesture").value = gesture;
+    document.getElementById("gesture-image").innerHTML = (gesture == undefined) ?
+        'No gesture selected!' : "<img src=../assets/img/"+ gesture + "_snapshot.png>";
+});
 
 var scene, camera, renderer;
 

@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="../assets/style/bootstrap.css" media="screen">
     <link rel="stylesheet" href="../assets/style/bootswatch.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/style/main.css">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r54/three.js"></script>
+    <!-- Include Leap (maybe you already do?) -->
+    <script src="http://js.leapmotion.com/0.3.0-beta3/leap.js"></script>
+    <!-- Include Leapstrap JS -->
+    <script src="http://wilkesalex.github.io/leapstrap/dist/js/leapstrap.js"></script>
+    <script src="../assets/js/bootswatch.js"></script>
+    <script src="../assets/js/visualizer.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
@@ -79,8 +88,12 @@
                 </div>
             </div>
             <div class="row">
+                <iframe name="hidden_iframe" id="hidden_iframe"
+                        style="display:none;" onload="if(submitted)
+                                {window.location=inputNextGesture();}"></iframe>
                 <form class="bs-example form-horizontal"
-                      action="https://docs.google.com/forms/d/13MMq9nmoaaAC9JF0B9c0YbaTncMKmf2uSRQIcN2TbrY/formResponse" method="POST">
+                      action="https://docs.google.com/forms/d/13MMq9nmoaaAC9JF0B9c0YbaTncMKmf2uSRQIcN2TbrY/formResponse"
+                      method="POST" target="hidden_iframe" onsubmit="submitted=true;">
                     <fieldset>
                         <div class="well">
                         <div class="form-group">
@@ -418,14 +431,5 @@
 
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r54/three.js"></script>
-    <!-- Include Leap (maybe you already do?) -->
-    <script src="http://js.leapmotion.com/0.3.0-beta3/leap.js"></script>
-    <!-- Include Leapstrap JS -->
-    <script src="http://wilkesalex.github.io/leapstrap/dist/js/leapstrap.js"></script>
-    <script src="../assets/js/bootswatch.js"></script>
-    <script src="../assets/js/visualizer.js"></script>
   </body>
 </html>
