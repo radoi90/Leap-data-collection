@@ -1,4 +1,5 @@
 var indexApp = angular.module('indexApp', []);
+var displayApp = angular.module('displayApp',[]);
 
 gestures = [];
 
@@ -22,4 +23,15 @@ indexApp.controller('indexCtrl', function ($scope) {
     $scope.gestures = gestures;
     $scope.gesture1 = $scope.gestures[0];
     $scope.gesture2 = $scope.gestures[0];
+
+    $scope.goToInput = function() {
+        if ($scope.gesture1 != null && $scope.gesture2 != null && $scope.control != undefined)
+            window.location = "gestures/collect.html?gesture=" + $scope.gesture1.short_name
+                                + "&gesture=" + $scope.gesture2.short_name
+                                + "&control=" + $scope.control;
+    }
+});
+
+displayApp.controller('displayCtrl', function ($scope) {
+   $scope.gestures = gestures;
 });
