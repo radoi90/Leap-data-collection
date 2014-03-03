@@ -39,11 +39,11 @@ displayApp.controller('displayCtrl', function ($scope) {
     $scope.gesture2 = $scope.gestures[0];
 
     var aspect_ration = 16/9;
-    var w = document.getElementsByClassName("col-lg-6")[0].firstElementChild.scrollWidth;
+    var w = document.getElementsByClassName("col-sm-6")[0].firstElementChild.scrollWidth;
     var h = w / aspect_ration;
 
     $scope.display1 = function() {
-        var p = document.getElementById("gesture1display");
+        var p = document.getElementById("video1display");
 
         p.innerHTML  =
             "<video controls poster=assets/img/"+$scope.gesture1.short_name +"_snapshot.png>" +
@@ -57,9 +57,9 @@ displayApp.controller('displayCtrl', function ($scope) {
     }
 
     $scope.display2 = function() {
-        var p = document.getElementById("gesture2display");
+        var pv = document.getElementById("video2display");
 
-        p.innerHTML  =
+        pv.innerHTML  =
             "<video controls poster=assets/img/"+$scope.gesture2.short_name +"_snapshot.png>" +
                 "<source src=https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/" + $scope.gesture2.short_name +
                 ".MP4?raw=true" + " type='video/mp4;codecs=&quot;avc1.42E01E, mp4a.40.2&quot;' />" +

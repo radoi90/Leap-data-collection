@@ -20,7 +20,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand leap-interactive">Leapraxia</a>
+                <a href="index.html" class="navbar-brand leap-interactive">Leapraxia</a>
                 <button class="navbar-toggle leap-interactive" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -53,20 +53,20 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-sm-6">
                 <p>Gesture 1</p>
                 <select class="form-control" ng-model="gesture1" ng-change="display1()"
                         ng-options="g.nice_name for g in gestures" id="gesture1"></select>
-                <br>
-                <p id="gesture1display"></p>
+                <img ng-src="assets/img/{{gesture1.short_name}}_snapshot.png">
+                <p id="video1display"></p>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-sm-6">
                 <p>Gesture 2</p>
                 <select class="form-control" ng-model="gesture2" ng-change="display2()"
                         ng-options="g.nice_name for g in gestures" id="gesture2"></select>
-                <br>
-                <p id="gesture2display"></p>
+                <img ng-src="assets/img/{{gesture2.short_name}}_snapshot.png">
+                <p id="video2display"></p>
             </div>
         </div>
 
