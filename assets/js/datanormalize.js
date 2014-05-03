@@ -173,7 +173,7 @@ var draw = function(d){
         var direction = d["finger"+i+"_direction"];
 
         var finger = new THREE.ArrowHelper(d["finger"+i+"_position"], direction, 40);
-        finger.setColor(0xff0000);
+        finger.setColor(colors[i]);
 
         finger.position = d["finger"+i+"_position"];
         finger.setDirection(direction);
@@ -192,3 +192,5 @@ function resizeCanvas() {
 
     renderer.render(scene,camera);
 };
+
+var colors = [0xFFFFFF, 0xFFCCCC, 0xFF8080, 0xFF4D4D, 0xFF0000];
