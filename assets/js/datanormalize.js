@@ -78,44 +78,39 @@ function normalize(d) {
     for (var e in d) {
         translate(e);
         rotate(e);
-        
-        d[e]["hand_position"] = new THREE.Vector3(0, 0, 0);
-
-
-        var X = new THREE.Vector3(1,0,0);
-        var Y = new THREE.Vector3(0,1,0);
-        var Z = new THREE.Vector3(0,0,1);
-
-        d[e]["sphere_position"] = new THREE.Vector3((+d[e].Hand_sphere_x) - hX, (+d[e].Hand_sphere_y) - hY, (+d[e].Hand_sphere_z) - hZ);
-
-        d[e]["sphere_position"].applyAxisAngle(X, -d[e].Hand_pitch);
-        d[e]["sphere_position"].applyAxisAngle(Y, d[e].Hand_yaw);
-        d[e]["sphere_position"].applyAxisAngle(Z, -d[e].Hand_roll);
-
-
-        for (var i = 0; i < d[e].num_fingers; i++) {
-
-
-            d[e]["finger"+i+"_position"].applyAxisAngle(X, -d[e].Hand_pitch);
-            d[e]["finger"+i+"_position"].applyAxisAngle(Y, d[e].Hand_yaw);
-            d[e]["finger"+i+"_position"].applyAxisAngle(Z, -d[e].Hand_roll);
-            
-
-
-            d[e]["finger"+i+"_direction"].applyAxisAngle(X, -d[e].Hand_pitch);
-            d[e]["finger"+i+"_direction"].applyAxisAngle(Y, d[e].Hand_yaw);
-            d[e]["finger"+i+"_direction"].applyAxisAngle(Z, -d[e].Hand_roll);
-
-        }
-
-        d[e]["Hand_pitch"]  = 0;
-        d[e]["Hand_yaw"]    = 0;
-        d[e]["Hand_roll"]   = 0;
     }
 }
 
-function translate(d) {
+function rotate(d) {
+    //define the 3 axes
+    var X = new THREE.Vector3(1,0,0);
+    var Y = new THREE.Vector3(0,1,0);
+    var Z = new THREE.Vector3(0,0,1);
 
+    //rotate sphere position
+    d.sphere_position.applyAxisAngle(X, -d.pitch);
+    d.sphere_position.applyAxisAngle(Y,  d.yaw);
+    d.sphere_position.applyAxisAngle(Z, -d.roll);
+
+    //rotate each finger
+    for (var i = 0; i < d.fingers.length; i++) {
+        d.fingers[i].tip.applyAxisAngle(X, -d[e].Hand_pitch);
+        d.fingers[i].tip.applyAxisAngle(Y,  d[e].Hand_yaw);
+        d.fingers[i].tip.applyAxisAngle(Z, -d[e].Hand_roll);
+
+        d.fingers[i].direction.applyAxisAngle(X, -d[e].Hand_pitch);
+        d.fingers[i].direction.applyAxisAngle(Y,  d[e].Hand_yaw);
+        d.fingers[i].direction.applyAxisAngle(Z, -d[e].Hand_roll);
+    }
+
+    //rotate hand position
+    d.pitch = 0;
+    d.yaw   = 0;
+    d.roll  = 0;
+}
+
+function translate(d) {
+    d[e]["sphere_position"] = new THREE.Vector3((+d[e].Hand_sphere_x) - hX, (+d[e].Hand_sphere_y) - hY, (+d[e].Hand_sphere_z) - hZ);
 }
 
 function loadData(d) {
