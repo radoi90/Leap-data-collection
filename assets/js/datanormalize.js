@@ -4,34 +4,89 @@ function readData() {
     d3.csv("../assets/data/all_gestures_sorted.csv", function(d) {
         data[d.Timestamp] = d;
     }, function(error, rows) {
-        loadData(data);
         normalize(data);
+        loadData(data);
     });
-}
+};
 
 readData();
 
 function normalize(d) {
     for (var e in d) {
-        for(var p in d[e]) {
-            if (d[e][p] == '') delete d[e][p];
+        var num_fingers = 0;
+        for(var i = 0; i < 5; i++) {
+            if (d[e]["finger"+i+"_tip_x"] == '') {
+                delete d[e]["finger"+i+"_tip_x"];
+                delete d[e]["finger"+i+"_tip_y"];
+                delete d[e]["finger"+i+"_tip_z"];
+                delete d[e]["finger"+i+"_direction_x"];
+                delete d[e]["finger"+i+"_direction_y"];
+                delete d[e]["finger"+i+"_direction_z"];
+            }
+            else num_fingers++;
         }
+        d[e]["num_fingers"] = num_fingers;
 
         var hX = +d[e].Hand_position_x;
         var hY = +d[e].Hand_position_y;
         var hZ = +d[e].Hand_position_z;
 
-        d[e].Hand_position_x = +d[e].Hand_position_x - hX;
-        d[e].Hand_position_y = +d[e].Hand_position_y - hY;
-        d[e].Hand_position_z = +d[e].Hand_position_z - hZ;
+        d[e]["hand_position"] = new THREE.Vector3(0, 0, 0);
+        delete d[e].Hand_position_x;
+        delete d[e].Hand_position_y;
+        delete d[e].Hand_position_z;
 
-        for (var i = 0; d[e]["finger"+i+"_tip_x"] != undefined; i++) {
-            d[e]["finger"+i+"_tip_x"] = +d[e]["finger"+i+"_tip_x"] - hX;
-            d[e]["finger"+i+"_tip_y"] = +d[e]["finger"+i+"_tip_y"] - hY;
-            d[e]["finger"+i+"_tip_z"] = +d[e]["finger"+i+"_tip_z"] - hZ;
+        d[e]["Hand_pitch"]  = +d[e]["Hand_pitch"];
+        d[e]["Hand_yaw"]    = +d[e]["Hand_yaw"];
+        d[e]["Hand_roll"]   = +d[e]["Hand_roll"];
+
+        var X = new THREE.Vector3(1,0,0);
+        var Y = new THREE.Vector3(0,1,0);
+        var Z = new THREE.Vector3(0,0,1);
+
+        d[e]["sphere_position"] = new THREE.Vector3((+d[e].Hand_sphere_x) - hX, (+d[e].Hand_sphere_y) - hY, (+d[e].Hand_sphere_z) - hZ);
+
+        d[e]["sphere_position"].applyAxisAngle(X, -d[e].Hand_pitch);
+        d[e]["sphere_position"].applyAxisAngle(Y, d[e].Hand_yaw);
+        d[e]["sphere_position"].applyAxisAngle(Z, -d[e].Hand_roll);
+
+        delete d[e].Hand_sphere_x;
+        delete d[e].Hand_sphere_y;
+        delete d[e].Hand_sphere_z;
+
+        for (var i = 0; i < d[e].num_fingers; i++) {
+            d[e]["finger"+i+"_position"] = new THREE.Vector3();
+            d[e]["finger"+i+"_position"].setX(+d[e]["finger"+i+"_tip_x"] - hX);
+            d[e]["finger"+i+"_position"].setY(+d[e]["finger"+i+"_tip_y"] - hY);
+            d[e]["finger"+i+"_position"].setZ(+d[e]["finger"+i+"_tip_z"] - hZ);
+
+            d[e]["finger"+i+"_position"].applyAxisAngle(X, -d[e].Hand_pitch);
+            d[e]["finger"+i+"_position"].applyAxisAngle(Y, d[e].Hand_yaw);
+            d[e]["finger"+i+"_position"].applyAxisAngle(Z, -d[e].Hand_roll);
+
+            delete d[e]["finger"+i+"_tip_x"];
+            delete d[e]["finger"+i+"_tip_y"];
+            delete d[e]["finger"+i+"_tip_z"];
+            
+            d[e]["finger"+i+"_direction"] = new THREE.Vector3();
+            d[e]["finger"+i+"_direction"].setX(+d[e]["finger"+i+"_direction_x"]);
+            d[e]["finger"+i+"_direction"].setY(+d[e]["finger"+i+"_direction_y"]);
+            d[e]["finger"+i+"_direction"].setZ(+d[e]["finger"+i+"_direction_z"]);
+
+            d[e]["finger"+i+"_direction"].applyAxisAngle(X, -d[e].Hand_pitch);
+            d[e]["finger"+i+"_direction"].applyAxisAngle(Y, d[e].Hand_yaw);
+            d[e]["finger"+i+"_direction"].applyAxisAngle(Z, -d[e].Hand_roll);
+
+            delete d[e]["finger"+i+"_direction_x"];
+            delete d[e]["finger"+i+"_direction_y"];
+            delete d[e]["finger"+i+"_direction_z"];
         }
+
+        d[e]["Hand_pitch"]  = 0;
+        d[e]["Hand_yaw"]    = 0;
+        d[e]["Hand_roll"]   = 0;
     }
-}
+};
 
 function loadData(d) {
     var select = document.getElementById("gesture");
@@ -54,36 +109,36 @@ function loadData(d) {
             document.getElementById("canvas-container").appendChild(renderer.domElement);
             displayHandInfo(d[this.value]);
             displayFingersInfo(d[this.value]);
-        }
+        };
     });
-}
+};
 
 function displayHandInfo(d) {
-    document.getElementById('hn.pos.x').value      = +d.Hand_position_x;
-    document.getElementById('hn.pos.y').value      = +d.Hand_position_y;
-    document.getElementById('hn.pos.z').value      = +d.Hand_position_z;
+    document.getElementById('hn.pos.x').value      = d.hand_position.x;
+    document.getElementById('hn.pos.y').value      = d.hand_position.y;
+    document.getElementById('hn.pos.z').value      = d.hand_position.z;
 
     document.getElementById('hn.pitch').value      = +d.Hand_pitch;
     document.getElementById('hn.yaw').value        = +d.Hand_yaw;
     document.getElementById('hn.roll').value       = +d.Hand_roll;
 
-    document.getElementById('hn.sphere.x').value   = +d.Hand_sphere_x;
-    document.getElementById('hn.sphere.y').value   = +d.Hand_sphere_y;
-    document.getElementById('hn.sphere.z').value   = +d.Hand_sphere_z;
+    document.getElementById('hn.sphere.x').value   = d.sphere_position.x;
+    document.getElementById('hn.sphere.y').value   = d.sphere_position.y;
+    document.getElementById('hn.sphere.z').value   = d.sphere_position.z;
     document.getElementById('hn.sphere.r').value   = +d.Hand_sphere_r;
 }
 
 function displayFingersInfo(d) {
-    for (var i = 0; i < 5; i++) {
-        document.getElementById('fg' + i + '.direction.x').value = +d["finger"+i+"_direction_x"];
-        document.getElementById('fg' + i + '.direction.y').value = +d["finger"+i+"_direction_y"];
-        document.getElementById('fg' + i + '.direction.z').value = +d["finger"+i+"_direction_z"];
+    for (var i = 0; i < d.num_fingers; i++) {
+        document.getElementById('fg' + i + '.direction.x').value = d["finger"+i+"_direction"].x;
+        document.getElementById('fg' + i + '.direction.y').value = d["finger"+i+"_direction"].y;
+        document.getElementById('fg' + i + '.direction.z').value = d["finger"+i+"_direction"].z;
 
-        document.getElementById('fg' + i + '.tip.x').value       = +d["finger"+i+"_tip_x"];
-        document.getElementById('fg' + i + '.tip.y').value       = +d["finger"+i+"_tip_y"];
-        document.getElementById('fg' + i + '.tip.z').value       = +d["finger"+i+"_tip_z"];
+        document.getElementById('fg' + i + '.tip.x').value       = d["finger"+i+"_position"].x;
+        document.getElementById('fg' + i + '.tip.y').value       = d["finger"+i+"_position"].y;
+        document.getElementById('fg' + i + '.tip.z').value       = d["finger"+i+"_position"].z;
     }
-}
+};
 
 var scene, camera, renderer;
 
@@ -101,8 +156,7 @@ var draw = function(d){
     camera.lookAt(new THREE.Vector3(0,100,-50));
 
     var circle;
-    var origin = new THREE.Vector3(+d.Hand_position_x, +d.Hand_position_y, +d.Hand_position_z);
-    var orientation = new THREE.Vector3(+d.Hand_pitch-Math.PI/2, -(+d.Hand_roll), -(+d.Hand_yaw)+Math.PI/2);
+    var orientation = new THREE.Vector3(0 - Math.PI/2, 0, 0 + Math.PI/2);
 
     var radius   = 60,
         segments = 64,
@@ -110,18 +164,18 @@ var draw = function(d){
         geometry = new THREE.CircleGeometry( radius, segments );
 
     circle = new THREE.Line( geometry, material );
-    circle.position = origin;
-    circle.rotation = orientation;
+    circle.position = d.hand_position;
+    circle.rotation.set(d.Hand_pitch - Math.PI/2, -d.Hand_roll, -d.Hand_yaw + Math.PI/2);
+
     scene.add(circle);
 
-    for (var i = 0; d["finger"+i+"_tip_x"] != undefined; i++) {
-        var origin = new THREE.Vector3(+d["finger"+i+"_tip_x"], +d["finger"+i+"_tip_y"], +d["finger"+i+"_tip_z"]);
-        var direction = new THREE.Vector3(+d["finger"+i+"_direction_x"], +d["finger"+i+"_direction_y"], +d["finger"+i+"_direction_z"]);
+    for (var i = 0; i < d.num_fingers; i++) {
+        var direction = d["finger"+i+"_direction"];
 
-        var finger = new THREE.ArrowHelper(origin, direction, 40);
+        var finger = new THREE.ArrowHelper(d["finger"+i+"_position"], direction, 40);
         finger.setColor(0xff0000);
 
-        finger.position = origin;
+        finger.position = d["finger"+i+"_position"];
         finger.setDirection(direction);
 
         scene.add(finger);
@@ -137,4 +191,4 @@ function resizeCanvas() {
     renderer.setSize(width, 400);
 
     renderer.render(scene,camera);
-}
+};
