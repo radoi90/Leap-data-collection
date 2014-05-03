@@ -32,14 +32,14 @@ function parse(d) {
         delete d[e]["Hand_roll"];
 
         //parse hand sphere position and radius
-        d[e]["sphere_position"] = new THREE.Vector3(+d[e].Hand_sphere_x,
+        d[e].sphere_position = new THREE.Vector3(   +d[e].Hand_sphere_x,
                                                     +d[e].Hand_sphere_y,
                                                     +d[e].Hand_sphere_z);
         delete d[e].Hand_sphere_x;
         delete d[e].Hand_sphere_y;
         delete d[e].Hand_sphere_z;
 
-        d[e]["sphere_radius"] = +d[e].Hand_sphere_r;
+        d[e].sphere_radius = +d[e].Hand_sphere_r;
 
         delete d[e].Hand_sphere_r;
 
@@ -69,18 +69,21 @@ function parse(d) {
             delete d[e]["finger"+i+"_direction_z"];
         }
 
-        d[e]["fingers"] = fingers;
+        d[e].fingers = fingers;
 
     }
 }
 
 function normalize(d) {
     for (var e in d) {
-        translate(e);
-        rotate(e);
+        translate(d[e]);
+        rotate(d[e]);
     }
 }
 
+/*
+    Rotate entire hand such that the palm's pitch, roll and yaw are 0
+ */
 function rotate(d) {
     //define the 3 axes
     var X = new THREE.Vector3(1,0,0);
@@ -94,13 +97,13 @@ function rotate(d) {
 
     //rotate each finger
     for (var i = 0; i < d.fingers.length; i++) {
-        d.fingers[i].tip.applyAxisAngle(X, -d[e].Hand_pitch);
-        d.fingers[i].tip.applyAxisAngle(Y,  d[e].Hand_yaw);
-        d.fingers[i].tip.applyAxisAngle(Z, -d[e].Hand_roll);
+        d.fingers[i].tip.applyAxisAngle(X, -d.pitch);
+        d.fingers[i].tip.applyAxisAngle(Y,  d.yaw);
+        d.fingers[i].tip.applyAxisAngle(Z, -d.roll);
 
-        d.fingers[i].direction.applyAxisAngle(X, -d[e].Hand_pitch);
-        d.fingers[i].direction.applyAxisAngle(Y,  d[e].Hand_yaw);
-        d.fingers[i].direction.applyAxisAngle(Z, -d[e].Hand_roll);
+        d.fingers[i].direction.applyAxisAngle(X, -d.pitch);
+        d.fingers[i].direction.applyAxisAngle(Y,  d.yaw);
+        d.fingers[i].direction.applyAxisAngle(Z, -d.roll);
     }
 
     //rotate hand position
@@ -109,10 +112,25 @@ function rotate(d) {
     d.roll  = 0;
 }
 
+/*
+    Translate entire hand such that the palm position is at the origin
+ */
 function translate(d) {
-    d[e]["sphere_position"] = new THREE.Vector3((+d[e].Hand_sphere_x) - hX, (+d[e].Hand_sphere_y) - hY, (+d[e].Hand_sphere_z) - hZ);
+    console.log(d);
+    //translate sphere position
+    d.sphere_position.sub(d.position);
+
+    //translate each finger
+    for (var i = 0; i < d.fingers.length; i++)
+        d.fingers[i].tip.sub(d.position);
+
+    //translate palm position
+    d.position.sub(d.position);
 }
 
+/*
+    Display all information in the form, image and 3d scene
+ */
 function loadData(d) {
     //load all data entries in the dropdown, select by keys (timpestamp + gesture)
     var select = document.getElementById("gesture");
@@ -140,6 +158,9 @@ function loadData(d) {
     });
 }
 
+/*
+    Display hand information in form
+ */
 function displayHandInfo(d) {
     document.getElementById('hn.pos.x').value      = d.position.x;
     document.getElementById('hn.pos.y').value      = d.position.y;
@@ -155,6 +176,9 @@ function displayHandInfo(d) {
     document.getElementById('hn.sphere.r').value   = d.sphere_radius;
 }
 
+/*
+    Display finger information in form
+ */
 function displayFingersInfo(d) {
     for (var i = 0; i < d.fingers.length; i++) {
         document.getElementById('fg' + i + '.direction.x').value = d.fingers[i].direction.x;
