@@ -78,7 +78,24 @@ function normalize(d) {
     for (var e in d) {
         translate(d[e]);
         rotate(d[e]);
+        rearrange(d[e]);
     }
+}
+
+function rearrange(d) {
+    do {
+        var swapped = false;
+
+        for (var i = 1; i < d.fingers.length; i++) {
+            if (d.fingers[i-1].tip.x > d.fingers[i].tip.x) {
+                var temp        = d.fingers[i-1];
+                d.fingers[i-1]  = d.fingers[i];
+                d.fingers[i]    = temp;
+
+                swapped = true;
+            }
+        }
+    } while (swapped);
 }
 
 /*
@@ -116,7 +133,6 @@ function rotate(d) {
     Translate entire hand such that the palm position is at the origin
  */
 function translate(d) {
-    console.log(d);
     //translate sphere position
     d.sphere_position.sub(d.position);
 
