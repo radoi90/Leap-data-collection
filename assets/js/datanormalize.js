@@ -4,13 +4,59 @@ init();
 
 //read data from csv and analyse it
 function init() {
-    d3.csv("../assets/data/all_gestures_sorted.csv", function(d) {
+    d3.csv("../assets/data/correct_gestures_sorted.csv", function(d) {
         data[d.Timestamp] = d;
     }, function(error, rows) {
         parse(data);
         normalize(data);
         loadData(data);
+        exportData(data);
     });
+}
+
+function exportData(d) {
+    data = [];
+    for (var e in d) {
+        delete d[e].Score;
+        delete d[e].Name;
+        delete d[e].Control;
+        delete d[e].yaw;
+        delete d[e].pitch;
+        delete d[e].roll;
+        delete d[e].position;
+
+        entry = [d[e].Timestamp, +d[e].Gesture, d[e].sphere_position.x, d[e].sphere_position.y,
+                    d[e].sphere_position.z, d[e].sphere_radius, d[e].fingers.length];
+
+        for (var i = 0; i < 5; i++) {
+            if (i < d[e].fingers.length) {
+                var f = d[e].fingers[i];
+                entry.push(f.tip.x, f.tip.y, f.tip.z, f.direction.x, f.direction.y, f.direction.z);
+            } else {
+                entry.push(0, 0, 0, 0, 0, 0);
+            }
+        }
+        data.push(entry);
+    }
+
+    dumpToCSV(data);
+}
+
+function dumpToCSV(data) {
+    var csvContent = "data:text/csv;charset=utf-8,";
+    data.forEach(function(infoArray, index){
+
+        dataString = infoArray.join(",");
+        csvContent += index < infoArray.length ? dataString+ "\n" : dataString;
+
+    });
+
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "my_data.csv");
+
+    link.click();
 }
 
 function parse(d) {
@@ -162,7 +208,7 @@ function loadData(d) {
     $( "#gesture" ).change(function() {
         gesture = (d[this.value] != undefined) ? d[this.value].Gesture : '';
         document.getElementById("gesture-image").innerHTML = (gesture.length == 0) ?
-            "No gesture selected!" : "<img src=../assets/img/gesture" + gesture + "_snapshot.png>";
+            "No gesture selected!" : "<img src=../assets/img/gesture" + gesture + "R_snapshot.png>";
         if (d[this.value] != undefined) {
             draw(d[this.value]);
             document.getElementById('canvas-container').innerHTML = (renderer == undefined) ?
@@ -257,3 +303,5 @@ function resizeCanvas() {
 }
 
 var colors = [0xFFFFFF, 0xFFCCCC, 0xFF8080, 0xFF4D4D, 0xFF0000];
+
+var numFingers = [3, 5, 2, 3, 3, 2, 2, 1, 3, 2];
