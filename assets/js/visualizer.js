@@ -6,7 +6,7 @@ function inputNextGesture() {
     } else {
         return '../';
     }
-}
+};
 
 function getParameterByName(name, remove) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -17,7 +17,7 @@ function getParameterByName(name, remove) {
         queryString = queryString.substring(queryString.indexOf(results[0]) + results[0].length);
 
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+};
 
 var queryString = location.search;
 
@@ -49,6 +49,9 @@ var init = function(){
 
   var fingers = {};
   var circle;
+    var X = new THREE.Vector3(1,0,0);
+    var Y = new THREE.Vector3(0,1,0);
+    var Z = new THREE.Vector3(0,0,1);
 
   Leap.loop(function(frame) {
 
@@ -60,14 +63,14 @@ var init = function(){
 
     var hand = frame.hand(handId);
     recordHandInfo(hand);
-      
+
     if (hand != undefined && hand.valid) {
         recordHandInfo(hand);
         recordFingersInfo(hand.fingers);
         var palmCenter = hand.palmPosition;
 
-        var origin = new THREE.Vector3(palmCenter[0], palmCenter[1], palmCenter[2]);
-        var orientation = new THREE.Vector3(hand.pitch()-Math.PI/2, -hand.roll(), -hand.yaw()+Math.PI/2);
+        var hOrigin = new THREE.Vector3(palmCenter[0], palmCenter[1], palmCenter[2]);
+        var orientation = new THREE.Vector3(-Math.PI/2, 0, Math.PI/2);
 
         var radius   = 60,
             segments = 64,
@@ -75,9 +78,10 @@ var init = function(){
             geometry = new THREE.CircleGeometry( radius, segments );
 
         scene.remove(circle);
+
         circle = new THREE.Line( geometry, material );
-        circle.position = origin;
-        circle.rotation = orientation;
+        circle.position = new THREE.Vector3(0,0,0);
+        circle.rotation.set(-Math.PI/2, 0, Math.PI/2);
 
         scene.add(circle);
 
@@ -89,11 +93,18 @@ var init = function(){
             var pos = pointable.tipPosition;
             var dir = pointable.direction;
 
-            var origin = new THREE.Vector3(pos[0], pos[1], pos[2]);
+            var origin = new THREE.Vector3(pos[0], pos[1], pos[2]).sub(hOrigin);
             var direction = new THREE.Vector3(dir[0], dir[1], dir[2]);
+            direction.applyAxisAngle(X, -hand.pitch());
+            direction.applyAxisAngle(Y, hand.yaw());
+            direction.applyAxisAngle(Z, -hand.roll());
+
+            origin.applyAxisAngle(X, -hand.pitch());
+            origin.applyAxisAngle(Y, hand.yaw());
+            origin.applyAxisAngle(Z, -hand.roll());
 
             if (!finger) {
-                finger = new THREE.ArrowHelper(origin, direction, 40);
+                finger = new THREE.ArrowHelper(origin, dir, 40);
 
                 fingers[pointable.id] = finger;
                 scene.add(finger);
@@ -101,6 +112,8 @@ var init = function(){
 
             finger.position = origin;
             finger.setDirection(direction);
+            console.log(direction);
+            console.log(dir);
 
             fingerIds[pointable.id] = true;
         }
