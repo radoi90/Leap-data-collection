@@ -4,7 +4,7 @@ init();
 
 //read data from csv and analyse it
 function init() {
-    d3.csv("../assets/data/correct_gestures_sorted.csv", function(d) {
+    d3.csv("../assets/data/correct_gestures_knnscore.csv", function(d) {
         data[d.Timestamp] = d;
     }, function(error, rows) {
         parse(data);
@@ -15,34 +15,32 @@ function init() {
 }
 
 function exportData(d) {
-    data = [];
-    for (var e in d) {
-        delete d[e].Score;
-        delete d[e].Name;
-        delete d[e].Control;
-        delete d[e].yaw;
-        delete d[e].pitch;
-        delete d[e].roll;
-        delete d[e].position;
+   // for(var g = 1; g <= 10; g++) {
+        data = [];
+        gs = [0,0,0,0,0,0,0,0,0,0];
 
-        entry = [d[e].Timestamp, +d[e].Gesture, d[e].sphere_position.x, d[e].sphere_position.y,
-                    d[e].sphere_position.z, d[e].sphere_radius, d[e].fingers.length];
+        for (var e in d) {
+            gs[+d[e].Gesture - 1]++;
 
-        for (var i = 0; i < 5; i++) {
-            if (i < d[e].fingers.length) {
-                var f = d[e].fingers[i];
-                entry.push(f.tip.x, f.tip.y, f.tip.z, f.direction.x, f.direction.y, f.direction.z);
-            } else {
-                entry.push(0, 0, 0, 0, 0, 0);
+            entry = [+d[e].Gesture, d[e].sphere_position.x, d[e].sphere_position.y,
+                        d[e].sphere_position.z, d[e].sphere_radius, d[e].fingers.length];
+
+            for (var i = 0; i < 5; i++) {
+                if (i < d[e].fingers.length) {
+                    var f = d[e].fingers[i];
+                    entry.push(f.tip.x, f.tip.y, f.tip.z, f.direction.x, f.direction.y, f.direction.z);
+                } else {
+                    entry.push(0, 0, 0, 0, 0, 0);
+                }
             }
+            data.push(entry);
         }
-        data.push(entry);
-    }
-
-    dumpToCSV(data);
+        console.log(gs);
+        //dumpToCSV(gs, 0);
+    //}
 }
 
-function dumpToCSV(data) {
+function dumpToCSV(data, i) {
     var csvContent = "data:text/csv;charset=utf-8,";
     data.forEach(function(infoArray, index){
 
@@ -54,7 +52,7 @@ function dumpToCSV(data) {
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "my_data.csv");
+    link.setAttribute("download", "g"+i+".csv");
 
     link.click();
 }
@@ -199,7 +197,7 @@ function loadData(d) {
 
     for (var e in d) {
         var el = document.createElement("option");
-        el.textContent = d[e].Timestamp + " " + d[e].Gesture;
+        el.textContent = Object.keys(d).indexOf(d[e].Timestamp) + " " + d[e].Timestamp + " " + d[e].Gesture;
         el.value = e;
         select.appendChild(el);
     }
@@ -224,6 +222,7 @@ function loadData(d) {
     Display hand information in form
  */
 function displayHandInfo(d) {
+    document.getElementById('Score').value         = d.Score;
     document.getElementById('hn.pos.x').value      = d.position.x;
     document.getElementById('hn.pos.y').value      = d.position.y;
     document.getElementById('hn.pos.z').value      = d.position.z;
