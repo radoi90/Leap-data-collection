@@ -28,7 +28,8 @@ $(document).ready(function() {
     document.getElementById("gesture-image").innerHTML = (gesture.length == 0) ?
         "No gesture selected!" : "<img src=../assets/img/"+ gesture + "_snapshot.png>";
 
-    var control = getParameterByName("control", false);
+    var
+        ol = getParameterByName("control", false);
     document.getElementById("Control").value = control;
 });
 
@@ -104,8 +105,8 @@ var init = function(){
             origin.applyAxisAngle(Z, -hand.roll());
 
             if (!finger) {
-                finger = new THREE.ArrowHelper(origin, dir, 40);
-
+                finger = new THREE.ArrowHelper(dir,origin, 40, undefined, undefined, 10);
+                finger.line.material = new THREE.LineBasicMaterial( {linewidth: 5} );
                 fingers[pointable.id] = finger;
                 scene.add(finger);
             }
