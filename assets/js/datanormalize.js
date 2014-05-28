@@ -305,7 +305,8 @@ var draw = function(d){
     scene.add(circle);
 
     for (var i = 0; i < d.fingers.length; i++) {
-        var finger = new THREE.ArrowHelper(d.fingers[i].tip, d.fingers[i].direction, 40);
+        var finger = new THREE.ArrowHelper(d.fingers[i].direction, d.fingers[i].tip, 40, undefined,undefined,10);
+        finger.line.material = new THREE.LineBasicMaterial( { color: colors[i]   , linewidth: 5} );
         finger.setColor(colors[i]);
 
         finger.position = d.fingers[i].tip;
