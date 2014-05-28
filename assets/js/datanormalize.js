@@ -1,6 +1,22 @@
 var data = {};
 
-init();
+var scene, camera, renderer;
+
+$( document ).ready(function() {
+    init();
+
+    scene = new THREE.Scene();
+    var width = document.getElementById("canvas-container").offsetWidth;
+    window.addEventListener('resize', resizeCanvas, false);
+    camera = new THREE.PerspectiveCamera(45, width/400, 0.10, 1000);
+    renderer = new THREE.WebGLRenderer();
+    resizeCanvas();
+
+    camera.position.z = 10;
+    camera.position.y = 400;
+
+    camera.lookAt(new THREE.Vector3(0,100,-50));
+});
 
 //read data from csv and analyse it
 function init() {
