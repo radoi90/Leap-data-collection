@@ -2,21 +2,7 @@ var data = {};
 
 var scene, camera, renderer;
 
-$( document ).ready(function() {
-    init();
-
-    scene = new THREE.Scene();
-    var width = document.getElementById("canvas-container").offsetWidth;
-    window.addEventListener('resize', resizeCanvas, false);
-    camera = new THREE.PerspectiveCamera(45, width/400, 0.10, 1000);
-    renderer = new THREE.WebGLRenderer();
-    resizeCanvas();
-
-    camera.position.z = 10;
-    camera.position.y = 400;
-
-    camera.lookAt(new THREE.Vector3(0,100,-50));
-});
+init();
 
 //read data from csv and analyse it
 function init() {
@@ -277,8 +263,6 @@ function displayFingersInfo(d) {
     }
 }
 
-var scene, camera, renderer;
-
 var draw = function(d){
     scene = new THREE.Scene();
     var width = document.getElementById("canvas-container").offsetWidth;
@@ -288,7 +272,7 @@ var draw = function(d){
     resizeCanvas();
 
     camera.position.z = 10;
-    camera.position.y = 600;
+    camera.position.y = 400;
 
     camera.lookAt(new THREE.Vector3(0,100,-50));
 
@@ -327,5 +311,4 @@ function resizeCanvas() {
     renderer.render(scene,camera);
 }
 
-
-var numFingers = [3, 5, 2, 3, 3, 2, 2, 1, 3, 2];
+var colors = [0xFFFFFF, 0xFFCCCC, 0xFF8080, 0xFF4D4D, 0xFF0000];
