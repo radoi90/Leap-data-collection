@@ -327,6 +327,5 @@ function resizeCanvas() {
     renderer.render(scene,camera);
 }
 
-var colors = [0xFFFFFF, 0xFFCCCC, 0xFF8080, 0xFF4D4D, 0xFF0000];
 
 var numFingers = [3, 5, 2, 3, 3, 2, 2, 1, 3, 2];
