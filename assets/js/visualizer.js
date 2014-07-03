@@ -63,11 +63,8 @@ var init = function(){
         handId = getBestHand(frame);
 
     var hand = frame.hand(handId);
-    recordHandInfo(hand);
 
     if (hand != undefined && hand.valid) {
-        recordHandInfo(hand);
-        recordFingersInfo(hand.fingers);
         var palmCenter = hand.palmPosition;
 
         var hOrigin = new THREE.Vector3(palmCenter[0], palmCenter[1], palmCenter[2]);
@@ -154,44 +151,6 @@ function getBestHand(f) {
     }
 
     return h;
-}
-
-function recordHandInfo(h) {
-    var has_data = (h != undefined && h.valid);
-
-    document.getElementById('hn.pos.x').value      = (has_data) ? h.palmPosition[0] : '';
-    document.getElementById('hn.pos.y').value      = (has_data) ? h.palmPosition[1] : '';
-    document.getElementById('hn.pos.z').value      = (has_data) ? h.palmPosition[2] : '';
-
-    document.getElementById('hn.pitch').value      = (has_data) ? h.pitch() : '';
-    document.getElementById('hn.yaw').value        = (has_data) ? h.yaw() : '';
-    document.getElementById('hn.roll').value       = (has_data) ? h.roll() : '';
-
-    document.getElementById('hn.sphere.x').value   = (has_data) ? h.sphereCenter[0] : '';
-    document.getElementById('hn.sphere.y').value   = (has_data) ? h.sphereCenter[1] : '';
-    document.getElementById('hn.sphere.z').value   = (has_data) ? h.sphereCenter[2] : '';
-    document.getElementById('hn.sphere.r').value   = (has_data) ? h.sphereRadius : '';
-}
-
-function recordFingersInfo(fs) {
-    for (var i = 0; i < fs.length; i++) {
-        document.getElementById('fg' + i + '.direction.x').value = fs[i].direction[0];
-        document.getElementById('fg' + i + '.direction.y').value = fs[i].direction[1];
-        document.getElementById('fg' + i + '.direction.z').value = fs[i].direction[2];
-
-        document.getElementById('fg' + i + '.tip.x').value       = fs[i].tipPosition[0];
-        document.getElementById('fg' + i + '.tip.y').value       = fs[i].tipPosition[1];
-        document.getElementById('fg' + i + '.tip.z').value       = fs[i].tipPosition[2];
-    }
-    for (var i = fs.length; i < 5; i++) {
-        document.getElementById('fg' + i + '.direction.x').value = '';
-        document.getElementById('fg' + i + '.direction.y').value = '';
-        document.getElementById('fg' + i + '.direction.z').value = '';
-
-        document.getElementById('fg' + i + '.tip.x').value       = '';
-        document.getElementById('fg' + i + '.tip.y').value       = '';
-        document.getElementById('fg' + i + '.tip.z').value       = '';
-    }
 }
 
 function resizeCanvas() {
