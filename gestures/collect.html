@@ -5,31 +5,24 @@
     <meta charset="utf-8">
     <title>Leapraxia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://wilkesalex.github.io/leapstrap/dist/css/leapstrap.css" />
     <link rel="stylesheet" href="../assets/style/bootstrap.css" media="screen">
     <link rel="stylesheet" href="../assets/style/bootswatch.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/style/main.css">
+    <link rel="stylesheet" href="../assets/style/main.css">
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="../assets/js/three.js"></script>
-    <!-- Include Leap (maybe you already do?) -->
-    <script src="http://js.leapmotion.com/0.3.0-beta3/leap.js"></script>
-    <!-- Include Leapstrap JS -->
-    <script src="http://wilkesalex.github.io/leapstrap/dist/js/leapstrap.js"></script>
-    <script src="../assets/js/bootswatch.js"></script>
-    <script src="../assets/js/visualizer.js"></script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
-      <script src="../bower_components/respond/dest/respond.min.js"></script>
-    <![endif]-->
+    <script src="../assets/js/jquery-1.10.2.min.js"></script>
+    <script src="../assets/js/three.min.js"></script>
+    <script src="../assets/js/leap-0.6.0.js"></script>
+    <!-- This gives us the hand-hold and hand-entry plugins, which rigged-hand depends on -->
+    <script src="../assets/js/leap-plugins-0.1.6.js"></script>
+    <script src="../assets/js/leap.rigged-hand-0.1.4.js"></script>
+    <!--<script src="../assets/js/visualizer.js"></script>-->
   </head>
   <body>
-
+    <script src="../assets/js/advanced.js"></script>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../" class="navbar-brand leap-interactive">Leapraxia</a>
+          <a href="../index.html" class="navbar-brand leap-interactive">Leapraxia</a>
           <button class="navbar-toggle leap-interactive" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -116,6 +109,5 @@
         </div>
         </div>
     </div>
-
   </body>
 </html>
