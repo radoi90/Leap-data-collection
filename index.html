@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/style/bootswatch.min.css">
     <link rel="stylesheet" type="text/css" href="assets/style/main.css">
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/bootswatch.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
@@ -35,294 +35,37 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Gestures <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="themes">
-                <li ng-repeat="gesture in gestures">
-                  <a ng-href="gestures/collect.html?gesture={{gesture.short_name}}">{{gesture.nice_name}}</a>
-                </li>
-              </ul>
-            </li>
             <li><a href="display.html">Display gestures</a></li>
-            <li><a class="" href="https://www.leapmotion.com/" target="_blank">Get Leap</a></li>
           </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://www.cs.ox.ac.uk/" target="_blank">Department of Computer Science</a></li>
-            <li><a href="http://www.psy.ox.ac.uk/" target="_blank">Department of Experimental Psychology</a></li>
-          </ul>
-
         </div>
       </div>
-    </div>
+    </div> 
 
 
     <div class="container">
-
-      <div class="bs-docs-section">
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Select two gestures for consecutive input.</p>
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <label class="control-label" for="gesture1">Gesture 1</label>
-                        <select class="form-control" ng-model="gesture1"
-                                ng-options="g.nice_name for g in gestures" id="gesture1"></select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="gesture2">Gesture 2</label>
-                        <select class="form-control" ng-model="gesture2"
-                                ng-options="g.nice_name for g in gestures" id="gesture2"></select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="control">Control</label>
-                        <select class="form-control" ng-model="control" id="control">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
-                    <button ng-click="goToInput()" class="btn btn-primary">Input gestures</button>
-                </form>
-            </div>
+        <div class="bs-docs-section">
+            <p>Select two gestures for consecutive input.</p>
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="control-label" for="gesture1">Gesture 1</label>
+                    <select class="form-control" ng-model="gesture1"
+                            ng-options="g.nice_name for g in gestures" id="gesture1"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="gesture2">Gesture 2</label>
+                    <select class="form-control" ng-model="gesture2"
+                            ng-options="g.nice_name for g in gestures" id="gesture2"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="control">Control</label>
+                    <select class="form-control" ng-model="control" id="control">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <button ng-click="goToInput()" class="btn btn-primary">Input gestures</button>
+            </form> 
         </div>
-        <div class="row">
-            <br>
-          <div class="col-md-3">
-            <h3>Gesture 1L</h3>
-            <p>
-                <video controls poster="assets/img/gesture1L_snapshot.png">
-                    <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture1L.MP4?raw=true"
-                            type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                </video>
-            </p>
-            <a href="gestures/collect.html?gesture=gesture1L" class="btn btn-primary ">Input gesture</a>
-          </div>
-            <div class="col-md-3">
-                <h3>Gesture 1R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture1R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture1R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture1R" class="btn btn-primary ">Input gesture</a>
-            </div>
-          <div class="col-md-3">
-            <h3>Gesture 2L</h3>
-            <p>
-                <video controls poster="assets/img/gesture2L_snapshot.png">
-                    <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture2L.MP4?raw=true"
-                            type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                </video>
-            </p>
-            <a href="gestures/collect.html?gesture=gesture2L" class="btn btn-primary ">Input gesture</a>
-          </div>
-            <div class="col-md-3">
-                <h3>Gesture 2R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture2R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture2R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture2R" class="btn btn-primary ">Input gesture</a>
-            </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3">
-            <h3>Gesture 3L</h3>
-            <p>
-                <video controls poster="assets/img/gesture3L_snapshot.png">
-                    <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture3L.MP4?raw=true"
-                            type='video/mp4;codecs="avc1, mp4a"' />
-                </video>
-            </p>
-            <a href="gestures/collect.html?gesture=gesture3L" class="btn btn-primary ">Input gesture</a>
-          </div>
-            <div class="col-md-3">
-                <h3>Gesture 3R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture3R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture3R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture3R" class="btn btn-primary ">Input gesture</a>
-            </div>
-          <div class="col-md-3">
-            <h3>Gesture 4L</h3>
-            <p>
-                <video controls poster="assets/img/gesture4L_snapshot.png">
-                    <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture4L.MP4?raw=true"
-                            type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                </video>
-            </p>
-            <a href="gestures/collect.html?gesture=gesture4L" class="btn btn-primary ">Input gesture</a>
-          </div>
-            <div class="col-md-3">
-                <h3>Gesture 4R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture4R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture4R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture4R" class="btn btn-primary ">Input gesture</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-              <h3>Gesture 5L</h3>
-              <p>
-                  <video controls poster="assets/img/gesture5L_snapshot.png">
-                      <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture5L.MP4?raw=true"
-                              type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                  </video>
-              </p>
-              <a href="gestures/collect.html?gesture=gesture5L" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 5R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture5R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture5R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture5R" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 6L</h3>
-                <p>
-                    <video controls poster="assets/img/gesture6L_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture6L.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture6L" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 6R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture6R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture6R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture6R" class="btn btn-primary ">Input gesture</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <h3>Gesture 7L</h3>
-                <p>
-                    <video controls poster="assets/img/gesture7L_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture7L.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture7L" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 7R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture7R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture7R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture7R" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 8L</h3>
-                <p>
-                    <video controls poster="assets/img/gesture8L_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture8L.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture8L" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 8R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture8R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture8R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture8R" class="btn btn-primary ">Input gesture</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <h3>Gesture 9L</h3>
-                <p>
-                    <video controls poster="assets/img/gesture9L_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture9L.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture9L" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 9R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture9R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture9R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture9R" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 10L</h3>
-                <p>
-                    <video controls poster="assets/img/gesture10L_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture10L.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture10L" class="btn btn-primary ">Input gesture</a>
-            </div>
-            <div class="col-md-3">
-                <h3>Gesture 10R</h3>
-                <p>
-                    <video controls poster="assets/img/gesture10R_snapshot.png">
-                        <source src="https://github.com/radoi90/Leap-data-collection/blob/master/assets/video/gesture10R.MP4?raw=true"
-                                type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' />
-                    </video>
-                </p>
-                <a href="gestures/collect.html?gesture=gesture10R" class="btn btn-primary ">Input gesture</a>
-            </div>
-        </div>
-
-
-      <footer>
-        <div class="row">
-          <div class="col-lg-12">
-
-            <ul class="list-unstyled">
-              <li class="pull-right "><a href="#top">Back to top</a></li>
-            </ul>
-          </div>
-        </div>
-
-      </footer>
-
-
     </div>
-    </div>
-
-    <script>
-        var aspect_ration = 16/9;
-        var w = document.getElementsByClassName("col-md-3")[0].firstElementChild.scrollWidth;
-        var h = w / aspect_ration;
-
-        var videos = document.getElementsByTagName("video");
-        for (var i = 0; i < videos.length; i++)
-            videos[i].setAttribute("style", "width:"+ w +"px;height:" + h+"px;");
-    </script>
   </body>
 </html>
