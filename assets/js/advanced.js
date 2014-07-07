@@ -1,4 +1,4 @@
-(function() {
+init = function() {
   // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParam(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -22,7 +22,7 @@ function getParam(name) {
     });
     renderer.setClearColor(0x000000, 1);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    element.appendChild(renderer.domElement);
+    document.getElementById("canvas-container").appendChild(renderer.domElement);
     axis = new THREE.AxisHelper(5);
     scene.add(axis);
     scene.add(new THREE.AmbientLight(0x888888));
@@ -34,12 +34,7 @@ function getParam(name) {
     camera.position.fromArray([0, 40, 24]);
     camera.lookAt(new THREE.Vector3(0,10,0));
     scene.add(camera);
-    window.addEventListener('resize', function() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      return renderer.render(scene, camera);
-    }, false);
+    window.addEventListener('resize', resizeCanvas, false);
     return renderer.render(scene, camera);
   };
 
@@ -69,4 +64,41 @@ var webglAvailable  = ( function () { try { var canvas = document.createElement(
     checkWebGL: true
   }).connect();
 
-}).call(this);
+};
+
+function resizeCanvas() {
+      var width = document.getElementById("canvas-container").offsetWidth;
+      console.log(width);
+      camera.aspect = width / 400;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, 400);
+      return renderer.render(scene, camera);
+}
+
+function getParameterByName(name, remove) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(queryString);
+
+    if (remove && results != null)
+        queryString = queryString.substring(queryString.indexOf(results[0]) + results[0].length);
+
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+
+var queryString = location.search;
+
+$(document).ready(function() {
+  init();
+  resizeCanvas();
+
+  var gesture = getParameterByName("gesture", true);
+
+  document.getElementById("gesture").value = gesture;
+  document.getElementById("gesture-image").innerHTML = (gesture.length == 0) ?
+      "No gesture selected!" : "<img src=../assets/img/"+ gesture + "_snapshot.png>";
+
+  var
+      control = getParameterByName("control", false);
+  document.getElementById("Control").value = control;
+});
